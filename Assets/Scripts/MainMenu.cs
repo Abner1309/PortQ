@@ -5,8 +5,7 @@ public class MainMenu : MonoBehaviour
 {
     public void Play()
     {
-        // SceneManager.LoadScene("NomeDaCenaDoJogo");
-        Debug.Log("Play");
+        SceneManager.LoadScene("2-Profile_Screen");
     }
 
     public void Configurations()
