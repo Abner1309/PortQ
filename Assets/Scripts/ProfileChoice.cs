@@ -9,6 +9,7 @@ public class ProfileChoice : MonoBehaviour
     public void TeacherChoice()
     {
         Debug.Log("Teacher Choice");
+        SceneManager.LoadScene("3-Create_Classroom");
         // SaveProfileAndLoad("Teacher");
     }
 
