@@ -16,6 +16,7 @@ public class ProfileChoice : MonoBehaviour
     public void StudentChoice()
     {
         Debug.Log("Student Choice");
+        SceneManager.LoadScene("4-Classroom_List");
         // SaveProfileAndLoad("Student");
     }
 
