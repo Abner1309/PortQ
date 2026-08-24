@@ -9,18 +9,18 @@ public class ProfileChoice : MonoBehaviour
     public void TeacherChoice()
     {
         Debug.Log("Teacher Choice");
-        SceneManager.LoadScene("3-Create_Classroom");
-        // SaveProfileAndLoad("Teacher");
+        SaveProfile("Teacher");
+        SceneManager.LoadScene("3-Create_Classroom");        
     }
 
     public void StudentChoice()
     {
         Debug.Log("Student Choice");
-        SceneManager.LoadScene("4-Classroom_List");
-        // SaveProfileAndLoad("Student");
+        SaveProfile("Student");
+        SceneManager.LoadScene("4-Classroom_List");        
     }
 
-    private void SaveProfileAndLoad(string profile)
+    private void SaveProfile(string profile)
     {
         string nameAccess = nameInputField.text.Trim();
 
@@ -30,10 +30,8 @@ public class ProfileChoice : MonoBehaviour
             return;
         }
 
-        // PlayerPrefs.SetString("NameAccess", nameAccess);
-        // PlayerPrefs.SetString("ProfileAccess", profile);
-        // PlayerPrefs.Save();
-
-        // SceneManager.LoadScene(nextSceneName);
+	PlayerPrefs.SetString("NameAccess", nameAccess);
+        PlayerPrefs.SetString("ProfileAccess", profile);
+        PlayerPrefs.Save();
     }
 }
