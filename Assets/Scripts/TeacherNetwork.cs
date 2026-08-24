@@ -11,9 +11,7 @@ public class TeacherNetwork : MonoBehaviour
             return;
         }
         
-        Debug.Log("Host iniciado com sucesso.");
-        
-        /* bool started = NetworkManager.Singleton.StartHost();
+        bool started = NetworkManager.Singleton.StartHost();
         if (started)
         {
             Debug.Log("Host iniciado com sucesso. Aguardando conexões...");
@@ -21,6 +19,6 @@ public class TeacherNetwork : MonoBehaviour
         else
         {
             Debug.LogError("Falha ao iniciar o host.");
-        }*/
+        }
     }
 }
