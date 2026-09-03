@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: 7fdbda03081fa685fab604750abd876e
+guid: c2d14957411bcb664bedf24259237c8e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1606782049905801975
-    second: student-icon_0
-  - first:
-      213: 472845232139152949
-    second: student-icon_1
-  - first:
-      213: 2436250809886756198
-    second: student-icon_2
+      213: 8211791937832398995
+    second: student-icon-colorful_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -106,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: student-icon_0
+      name: student-icon-colorful_0
       rect:
         serializedVersion: 2
-        x: 28
-        y: 8
-        width: 144
-        height: 184
+        x: 56
+        y: 27
+        width: 399
+        height: 456
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7fafb14e2cf6c4610800000000000000
-      internalID: 1606782049905801975
+      spriteID: 390baef624526f170800000000000000
+      internalID: 8211791937832398995
       vertices: []
       indices: 
       edges: []
@@ -131,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: b936c5227e847b995b0643e1c02aa320
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -141,9 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      student-icon_0: 1606782049905801975
-      student-icon_1: 472845232139152949
-      student-icon_2: 2436250809886756198
+      student-icon-colorful_0: 8211791937832398995
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
