@@ -22,7 +22,7 @@ public class ProfileLoadScreen : MonoBehaviour
         }
         if (teacherToggle.isOn)
         {
-            Debug.Log("Ainda não implementado.");
+            SceneManager.LoadScene("3-TeacherPage");
         }
     }
 }
