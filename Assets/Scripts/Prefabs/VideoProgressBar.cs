@@ -4,12 +4,7 @@ using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.Video;
 
-/// <summary>
-/// Barra de progresso de vídeo estilo YouTube.
-/// Sincroniza um Slider com o tempo do VideoPlayer, permitindo que o usuário
-/// arraste para navegar (scrub) sem conflitar com a atualização automática.
-/// </summary>
-public class VideoProgressBar : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IEndDragHandler
+public class VideoProgressBar : MonoBehaviour
 {
     [Header("Referências")]
     [SerializeField] private VideoPlayer videoPlayer;
@@ -30,19 +25,18 @@ public class VideoProgressBar : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     {
         if (progressSlider == null)
             progressSlider = GetComponent<Slider>();
+
+        SetupEventTrigger();
     }
 
     private void OnEnable()
     {
-        // Slider trabalha com valores de 0 a 1 (normalizado)
         progressSlider.minValue = 0f;
         progressSlider.maxValue = 1f;
     }
 
     private void Update()
     {
-        // Só atualiza a posição do slider automaticamente se o usuário
-        // não estiver arrastando ele no momento
         if (!isDragging && videoPlayer.length > 0)
         {
             float normalizedTime = (float)(videoPlayer.time / videoPlayer.length);
@@ -52,32 +46,28 @@ public class VideoProgressBar : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         UpdateTimeLabels();
     }
 
-    /// <summary>
-    /// Chamado quando o usuário começa a tocar/clicar no slider (via evento do sistema).
-    /// </summary>
-    public void OnPointerDown(PointerEventData eventData)
+    private void SetupEventTrigger()
     {
-        BeginDrag();
+        EventTrigger trigger = progressSlider.GetComponent<EventTrigger>();
+        if (trigger == null)
+            trigger = progressSlider.gameObject.AddComponent<EventTrigger>();
+
+        AddTriggerListener(trigger, EventTriggerType.PointerDown, (_) => BeginDrag());
+        AddTriggerListener(trigger, EventTriggerType.PointerUp, (_) => FinishDrag());
+        AddTriggerListener(trigger, EventTriggerType.BeginDrag, (_) => BeginDrag());
+        AddTriggerListener(trigger, EventTriggerType.EndDrag, (_) => FinishDrag());
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    private void AddTriggerListener(EventTrigger trigger, EventTriggerType type, UnityEngine.Events.UnityAction<BaseEventData> callback)
     {
-        FinishDrag();
-    }
-
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        BeginDrag();
+        EventTrigger.Entry entry = new EventTrigger.Entry { eventID = type };
+        entry.callback.AddListener(callback);
+        trigger.triggers.Add(entry);
     }
 
     private void BeginDrag()
     {
         isDragging = true;
-
-        // Usa o estado de PAUSA MANUAL do controller, não videoPlayer.isPlaying.
-        // Isso é o que resolve o bug: quando o vídeo termina sozinho, isPlaying fica
-        // false, mas manuallyPaused continua false (o usuário não pausou por escolha),
-        // então o slider sabe que deve retomar o play ao soltar.
         wasPlayingBeforeDrag = playerController != null
             ? !playerController.IsManuallyPaused
             : videoPlayer.isPlaying;
@@ -91,22 +81,15 @@ public class VideoProgressBar : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         }
     }
 
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        FinishDrag();
-    }
-
     private void FinishDrag()
     {
         if (!isDragging) return;
 
         isDragging = false;
 
-        // Aplica o tempo baseado na posição final do slider
         double targetTime = videoPlayer.length * progressSlider.value;
         videoPlayer.time = targetTime;
 
-        // Retoma a reprodução se estava tocando (ou tinha acabado de terminar) antes do drag
         if (wasPlayingBeforeDrag)
         {
             if (playerController != null)
@@ -116,13 +99,9 @@ public class VideoProgressBar : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         }
     }
 
-    /// <summary>
-    /// Ligar este método ao evento On Value Changed do Slider no Inspector,
-    /// para permitir clique direto em qualquer ponto da barra (sem precisar arrastar).
-    /// </summary>
     public void OnSliderValueChanged(float value)
     {
-        if (!isDragging) return; // evita loop com a atualização automática do Update()
+        if (!isDragging) return;
 
         double targetTime = videoPlayer.length * value;
         videoPlayer.time = targetTime;
