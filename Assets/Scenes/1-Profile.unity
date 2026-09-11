@@ -2221,6 +2221,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 129101659}
     m_Modifications:
+    - target: {fileID: 342303372108619060, guid: 67561936a5b60ee6381ca071bc2d26d3, type: 3}
+      propertyPath: m_text
+      value: "O Portal do Or\xE1culo"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593873876002627018, guid: 67561936a5b60ee6381ca071bc2d26d3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7488201993844231958, guid: 67561936a5b60ee6381ca071bc2d26d3, type: 3}
       propertyPath: m_Name
       value: FixedUpperMenu

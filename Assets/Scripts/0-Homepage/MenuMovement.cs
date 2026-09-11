@@ -1,16 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using System;
 using System.Collections.Generic;
 
 public class MenuMovement : MonoBehaviour
 {
     [SerializeField] private ScrollRect scrollRect;
+    [SerializeField] private TMP_Dropdown menuDropdown;
 
     [Serializable]
     public class MenuSectionLink
     {
-        public Button menuButton;
+        public string optionLabel; // deve corresponder ao texto da opção no Dropdown (ex: "Início", "Pilares")
         public RectTransform sectionTarget;
     }
 
@@ -18,10 +20,22 @@ public class MenuMovement : MonoBehaviour
 
     private void Start()
     {
-        foreach (var link in sectionLinks)
+        menuDropdown.onValueChanged.AddListener(OnDropdownValueChanged);
+    }
+
+    private void OnDropdownValueChanged(int index)
+    {
+        string selectedLabel = menuDropdown.options[index].text;
+
+        MenuSectionLink link = sectionLinks.Find(l => l.optionLabel == selectedLabel);
+
+        if (link != null && link.sectionTarget != null)
         {
-            RectTransform target = link.sectionTarget; // evita closure capturando a variável errada
-            link.menuButton.onClick.AddListener(() => ScrollToTarget(target));
+            ScrollToTarget(link.sectionTarget);
+        }
+        else
+        {
+            Debug.LogWarning($"Nenhuma seção encontrada para a opção '{selectedLabel}'.");
         }
     }
 
