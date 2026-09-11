@@ -3276,6 +3276,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1094562792}
     m_Modifications:
+    - target: {fileID: 342303372108619060, guid: 67561936a5b60ee6381ca071bc2d26d3, type: 3}
+      propertyPath: m_text
+      value: "Reino I - O Labirinto das Hist\xF3rias"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2602449807978340916, guid: 67561936a5b60ee6381ca071bc2d26d3, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 467.6813
+      objectReference: {fileID: 0}
+    - target: {fileID: 2602449807978340916, guid: 67561936a5b60ee6381ca071bc2d26d3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -156.03703
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593873876002627018, guid: 67561936a5b60ee6381ca071bc2d26d3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7488201993844231958, guid: 67561936a5b60ee6381ca071bc2d26d3, type: 3}
       propertyPath: m_Name
       value: FixedUpperMenu
