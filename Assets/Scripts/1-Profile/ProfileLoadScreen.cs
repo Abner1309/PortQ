@@ -36,7 +36,7 @@ public class ProfileLoadScreen : MonoBehaviour
     
     private void VerifyNameField(string str)    
     {
-    	string namePattern = @"^[A-Za-z\u00C0-\u00FF ]+$";
+    	string namePattern = @"^[A-Za-z ]+$";
     	nameValid = false; 	
     	
 		if (string.IsNullOrEmpty(str))
@@ -53,7 +53,7 @@ public class ProfileLoadScreen : MonoBehaviour
 		}
 		if (!Regex.IsMatch(str, namePattern))
 		{
-			nameErrorMessage.text = "O nome do usuário deve possuir apenas letras.";
+			nameErrorMessage.text = "O nome do usuário deve possuir apenas letras (sem acento e sem cedilha).";
 			nameErrorMessage.gameObject.SetActive(true);
 			return;
 		}
@@ -64,7 +64,7 @@ public class ProfileLoadScreen : MonoBehaviour
     
     private void VerifyClassField(string str)
     {
-		string classPattern = @"^[A-Za-z0-9\u00C0-\u00FF ]+$";
+		string classPattern = @"^[0-9][A-Z]$";
 		classValid = false;
     	
     	if (string.IsNullOrEmpty(str))
@@ -73,15 +73,15 @@ public class ProfileLoadScreen : MonoBehaviour
 			classErrorMessage.gameObject.SetActive(true);
     		return;
     	}
-    	if (str.Length > 10)
+    	if (str.Length > 2)
     	{
-    		classErrorMessage.text = "O nome da classe não deve ter mais do que 10 caracteres.";
+    		classErrorMessage.text = "O nome da classe deve ter exatamente dois caracteres.";
 			classErrorMessage.gameObject.SetActive(true);
     		return;
     	}
     	if (!Regex.IsMatch(str, classPattern))
     	{
-    		classErrorMessage.text = "O nome da classe deve possuir apenas letras e números.";
+    		classErrorMessage.text = "O nome da classe deve possuir exatamento um número seguido de uma letra maiúscula. (Ex.: 6A).";
 			classErrorMessage.gameObject.SetActive(true);
 	  		return;
     	}    	

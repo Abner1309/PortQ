@@ -18,9 +18,12 @@ public class MenuMovement : MonoBehaviour
 
     [SerializeField] private List<MenuSectionLink> sectionLinks;
 
+    private bool isScrollingProgrammatically; // evita que o listener de scroll rode durante um ScrollToTarget
+
     private void Start()
     {
         menuDropdown.onValueChanged.AddListener(OnDropdownValueChanged);
+        scrollRect.onValueChanged.AddListener(OnScrollChanged);
     }
 
     private void OnDropdownValueChanged(int index)
@@ -41,6 +44,8 @@ public class MenuMovement : MonoBehaviour
 
     public void ScrollToTarget(RectTransform target)
     {
+        isScrollingProgrammatically = true;
+
         Canvas.ForceUpdateCanvases();
 
         Vector2 contentPos = (Vector2)scrollRect.transform.InverseTransformPoint(scrollRect.content.position);
@@ -50,5 +55,47 @@ public class MenuMovement : MonoBehaviour
             scrollRect.content.anchoredPosition.x,
             contentPos.y - targetPos.y
         );
+
+        isScrollingProgrammatically = false;
+    }
+
+    private void OnScrollChanged(Vector2 normalizedPos)
+    {
+        if (isScrollingProgrammatically) return;
+
+        UpdateDropdownToCurrentSection();
+    }
+
+    private void UpdateDropdownToCurrentSection()
+    {
+        RectTransform viewport = scrollRect.viewport != null ? scrollRect.viewport : (RectTransform)scrollRect.transform;
+
+        MenuSectionLink closestLink = null;
+        float closestDistance = float.MaxValue;
+
+        foreach (var link in sectionLinks)
+        {
+            if (link.sectionTarget == null) continue;
+
+            // Posição da seção relativa ao topo da viewport
+            Vector3 viewportLocalPos = viewport.InverseTransformPoint(link.sectionTarget.position);
+            float distance = Mathf.Abs(viewportLocalPos.y);
+
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestLink = link;
+            }
+        }
+
+        if (closestLink == null) return;
+
+        int optionIndex = menuDropdown.options.FindIndex(o => o.text == closestLink.optionLabel);
+
+        if (optionIndex >= 0 && menuDropdown.value != optionIndex)
+        {
+            menuDropdown.SetValueWithoutNotify(optionIndex);
+            menuDropdown.RefreshShownValue(); // atualiza o texto exibido no Dropdown fechado
+        }
     }
 }
