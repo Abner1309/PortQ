@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
+using System.Globalization;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -20,6 +22,7 @@ public class PlayerStats : MonoBehaviour
 		UpdateWelcome();
 		UpdateSlider();
 		UpdateStats(sliderMissions.value);
+		UpdateStreak();
 	}
 	
 	private void OnEnable()
@@ -42,6 +45,43 @@ public class PlayerStats : MonoBehaviour
 		percentageMissions.text = $"{percentage:F0} %";
 		
 		UpdateTag(experience);
+	}
+	
+	private string GetLastLoginDate()
+	{
+		if (PlayerPrefs.HasKey("LastLogin"))
+		{
+			return PlayerPrefs.GetString("LastLogin");
+		}
+		DateTime today = DateTime.Today;
+		string todayDate = today.ToString("yyyy/MM/dd");
+		PlayerPrefs.SetString("LastLogin", todayDate);
+		return todayDate;
+	}
+	
+	private void UpdateStreak()
+	{		
+		DateTime actualDate = DateTime.Today;
+		DateTime lastDate = DateTime.ParseExact(GetLastLoginDate(), "yyyy/MM/dd", CultureInfo.InvariantCulture);
+		
+		TimeSpan dateDiff = actualDate.Date - lastDate.Date;
+		int daysDiff = dateDiff.Days;	
+		
+		string strActualDate = actualDate.ToString("yyyy/MM/dd");
+		PlayerPrefs.SetString("LastLogin", strActualDate);
+		
+		if (daysDiff > 1)
+		{			
+			userStreak.text = $"1 Dia";
+		}
+		else if (daysDiff == 1)
+		{
+			string aux = userStreak.text;
+			string[] streakParts = aux.Split(' ');
+			int quantity = int.Parse(streakParts[0]);
+			quantity++;
+			userStreak.text = $"{quantity} Dias";
+		}	
 	}
 	
 	private void UpdateTag(int value)
