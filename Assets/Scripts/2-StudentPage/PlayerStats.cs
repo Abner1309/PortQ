@@ -47,42 +47,48 @@ public class PlayerStats : MonoBehaviour
 		UpdateTag(experience);
 	}
 	
-	private string GetLastLoginDate()
-	{
-		if (PlayerPrefs.HasKey("LastLogin"))
-		{
-			return PlayerPrefs.GetString("LastLogin");
-		}
-		DateTime today = DateTime.Today;
-		string todayDate = today.ToString("yyyy/MM/dd");
-		PlayerPrefs.SetString("LastLogin", todayDate);
-		return todayDate;
-	}
-	
+	private const string LastLoginKey = "LastLogin";
+	private const string StreakKey = "Streak";
+	private const string DateFormat = "yyyy/MM/dd";
+
 	private void UpdateStreak()
-	{		
-		DateTime actualDate = DateTime.Today;
-		DateTime lastDate = DateTime.ParseExact(GetLastLoginDate(), "yyyy/MM/dd", CultureInfo.InvariantCulture);
-		
-		TimeSpan dateDiff = actualDate.Date - lastDate.Date;
-		int daysDiff = dateDiff.Days;	
-		
-		string strActualDate = actualDate.ToString("yyyy/MM/dd");
-		PlayerPrefs.SetString("LastLogin", strActualDate);
-		
-		string aux = userStreak.text;
-		string[] streakParts = aux.Split(' ');
-		int quantity = int.Parse(streakParts[0]);
-		
-		if (daysDiff > 1 || quantity == 0)
-		{			
-			userStreak.text = $"1 Dia";
+	{
+		DateTime today = DateTime.Today;
+		int streak = PlayerPrefs.GetInt(StreakKey, 0);
+
+		if (PlayerPrefs.HasKey(LastLoginKey)
+			&& DateTime.TryParseExact(
+				PlayerPrefs.GetString(LastLoginKey),
+				DateFormat,
+				CultureInfo.InvariantCulture,
+				DateTimeStyles.None,
+				out DateTime lastDate))
+		{
+			int daysDiff = (today - lastDate.Date).Days;
+
+			if (daysDiff == 0)
+			{
+				streak = Mathf.Max(streak, 1);
+			}
+			else if (daysDiff == 1)
+			{
+				streak++;
+			}
+			else
+			{
+				streak = 1;
+			}
 		}
-		else if (daysDiff == 1)
-		{		
-			quantity++;
-			userStreak.text = $"{quantity} Dias";
-		}	
+		else
+		{
+			streak = 1;
+		}
+
+		PlayerPrefs.SetInt(StreakKey, streak);
+		PlayerPrefs.SetString(LastLoginKey, today.ToString(DateFormat, CultureInfo.InvariantCulture));
+		PlayerPrefs.Save();
+
+		userStreak.text = streak == 1 ? "1 Dia" : $"{streak} Dias";
 	}
 	
 	private void UpdateTag(int value)
