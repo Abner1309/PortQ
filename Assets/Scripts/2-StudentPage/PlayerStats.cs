@@ -70,15 +70,16 @@ public class PlayerStats : MonoBehaviour
 		string strActualDate = actualDate.ToString("yyyy/MM/dd");
 		PlayerPrefs.SetString("LastLogin", strActualDate);
 		
-		if (daysDiff > 1)
+		string aux = userStreak.text;
+		string[] streakParts = aux.Split(' ');
+		int quantity = int.Parse(streakParts[0]);
+		
+		if (daysDiff > 1 || quantity == 0)
 		{			
 			userStreak.text = $"1 Dia";
 		}
 		else if (daysDiff == 1)
-		{
-			string aux = userStreak.text;
-			string[] streakParts = aux.Split(' ');
-			int quantity = int.Parse(streakParts[0]);
+		{		
 			quantity++;
 			userStreak.text = $"{quantity} Dias";
 		}	
