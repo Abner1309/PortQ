@@ -1,0 +1,23 @@
+public enum ColorToken
+{
+    Title,
+    Explanation,
+    Instruction,
+    Question,
+    Result,
+    Arcane_Panel,
+    Accent,
+    Primary,
+    Secondary,
+    Background,
+    Card,
+    Edge,
+    Main_Text,
+    Secondary_Text,
+    Destructive,
+    Golden_Glow,
+    Arcane,
+    Ember,
+    Field,
+    Focus
+}
