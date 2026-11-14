@@ -15,7 +15,7 @@ public static class Theme
     private static void Load()
     {
         if (loaded) return;
-        config = Resources.Load<ThemeConfig>("ThemeConfig");
+        config = Resources.Load<ThemeConfig>("Color/ThemeConfig");
         highContrast = PlayerPrefs.GetString(Key, "Default") == ContrastValue;
         loaded = true;
     }
