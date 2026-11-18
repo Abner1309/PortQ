@@ -6,17 +6,25 @@ using UnityEngine.UI;
 public class ThemedColor : MonoBehaviour
 {
     [SerializeField] private ColorToken token;
-    [SerializeField] private ColorPalette pallet;
 
     private Graphic graphic;
 
-    private void OnEnable() { Apply(); }
+    private void OnEnable()
+    {
+        Theme.Changed += Apply;
+        Apply();
+    }
+
+    private void OnDisable() { Theme.Changed -= Apply; }
+
     private void OnValidate() { Apply(); }
 
     public void Apply()
     {
-        if (pallet == null) return;
+        ColorPalette palette = Theme.Current;
+        if (palette == null) return;
+
         if (graphic == null) graphic = GetComponent<Graphic>();
-        graphic.color = pallet.Get(token);
+        graphic.color = palette.Get(token);
     }
 }
