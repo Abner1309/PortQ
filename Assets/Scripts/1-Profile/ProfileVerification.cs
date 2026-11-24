@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Text.RegularExpressions;
 
-public class ProfileLoadScreen : MonoBehaviour
+public class ProfileVerification : MonoBehaviour
 {
 	private bool nameValid = false;
 	private bool classValid = false;
@@ -21,6 +21,10 @@ public class ProfileLoadScreen : MonoBehaviour
 	[Header("Mensagens de Erro:")]
 	[SerializeField] private TextMeshProUGUI nameErrorMessage;
 	[SerializeField] private TextMeshProUGUI classErrorMessage;
+	
+	[Header("Transição de Tela:")]
+	[SerializeField] private NextScene studentScene;
+	[SerializeField] private NextScene teacherScene;
 
     private void Awake()
     {
@@ -102,14 +106,14 @@ public class ProfileLoadScreen : MonoBehaviour
         	PlayerPrefs.SetString("StudentName", userName.text);
         	PlayerPrefs.SetString("StudentClassroom", userClassroom.text);
         	PlayerPrefs.Save();
-            SceneManager.LoadScene("2-StudentPage");
+	        studentScene.LoadSelectedScene();
         }
         if (teacherToggle.isOn)
         {
         	PlayerPrefs.SetString("TeacherName", userName.text);
         	PlayerPrefs.SetString("TeacherClassroom", userClassroom.text);
         	PlayerPrefs.Save();
-            SceneManager.LoadScene("3-TeacherPage");
+	        teacherScene.LoadSelectedScene();
         }
     }
 }

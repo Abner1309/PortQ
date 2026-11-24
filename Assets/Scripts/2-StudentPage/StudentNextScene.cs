@@ -23,7 +23,7 @@ public class StudentToggleColor : MonoBehaviour
 
     public void ButtonEnter()
     {
-    	if (toggleMaze.isOn) { SceneManager.LoadScene("4-Maze"); }
+    	if (toggleMaze.isOn) { SceneManager.LoadScene("Ea_LabyrinthOfStories"); }
     	else if (toggleAppearances.isOn) { Debug.Log("Nível 2 Não Implementado."); }
     	else if (toggleTower.isOn) { Debug.Log("Nível 3 Não Implementado."); }
     	else if (toggleConcil.isOn) { Debug.Log("Nível 4 Não Implementado."); }
