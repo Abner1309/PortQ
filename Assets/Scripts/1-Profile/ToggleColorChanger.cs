@@ -4,24 +4,23 @@ using UnityEngine.UI;
 public class ToggleColorChanger : MonoBehaviour
 {
     [SerializeField] private Toggle toggle;
-    [SerializeField] private Image backgroundImage;
-
-    [SerializeField] private Color corDesmarcado = Color.white;
-    [SerializeField] private Color corMarcado = Color.green;
+    [SerializeField] private ColorToken tokenMarked;
+    [SerializeField] private ColorToken tokenUnmarked;
+    [SerializeField] private ThemedColor themedColor;
 
     private void Awake()
     {
-        toggle.onValueChanged.AddListener(AtualizarCor);
-        AtualizarCor(toggle.isOn); // Define a cor inicial
+        toggle.onValueChanged.AddListener(UpdateColor);
+        UpdateColor(toggle.isOn);
     }
 
-    private void AtualizarCor(bool isOn)
+    private void UpdateColor(bool isOn)
     {
-        backgroundImage.color = isOn ? corMarcado : corDesmarcado;
+        themedColor.SetToken(isOn ? tokenMarked :  tokenUnmarked);
     }
 
     private void OnDestroy()
     {
-        toggle.onValueChanged.RemoveListener(AtualizarCor);
+        toggle.onValueChanged.RemoveListener(UpdateColor);
     }
 }

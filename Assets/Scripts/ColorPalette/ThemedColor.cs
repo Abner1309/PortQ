@@ -19,6 +19,12 @@ public class ThemedColor : MonoBehaviour
 
     private void OnValidate() { Apply(); }
 
+    public void SetToken(ColorToken newToken)
+    {
+        token = newToken;
+        Apply();
+    }
+
     public void Apply()
     {
         ColorPalette palette = Theme.Current;
