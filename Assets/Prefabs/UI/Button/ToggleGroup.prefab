@@ -332,7 +332,8 @@ GameObject:
   - component: {fileID: 8351533153627463492}
   - component: {fileID: 9166543713624769895}
   - component: {fileID: 3119099488014080167}
-  - component: {fileID: 2666393250641255858}
+  - component: {fileID: 4921167626870258998}
+  - component: {fileID: 2284094775688681374}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -398,7 +399,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2666393250641255858
+--- !u!114 &4921167626870258998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2607447484438506677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0062b3a6711aef559a8a7e4e1982af0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggle: {fileID: 737508506135915563}
+  tokenMarked: 19
+  tokenUnmarked: 18
+  themedColor: {fileID: 2284094775688681374}
+--- !u!114 &2284094775688681374
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -624,7 +641,8 @@ GameObject:
   - component: {fileID: 3330297195735124021}
   - component: {fileID: 4796407212649896148}
   - component: {fileID: 2163535828801440650}
-  - component: {fileID: 6218640385723020958}
+  - component: {fileID: 2776772005724579667}
+  - component: {fileID: 5274194857205662868}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -690,7 +708,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6218640385723020958
+--- !u!114 &2776772005724579667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3844522820744082102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0062b3a6711aef559a8a7e4e1982af0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggle: {fileID: 4318398901870482102}
+  tokenMarked: 19
+  tokenUnmarked: 18
+  themedColor: {fileID: 5274194857205662868}
+--- !u!114 &5274194857205662868
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
